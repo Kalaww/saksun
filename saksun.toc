@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 20501
 ## Title: Saksun
 ## Author: Kala
 ## Version: 0.1.0
@@ -7,5 +7,7 @@ Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
 Libs\AceAddon-3.0\AceAddon-3.0.xml
 Libs\AceEvent-3.0\AceEvent-3.0.xml
+Libs\AceLocale-3.0\AceLocale-3.0.xml
 
+Locales\Locales.xml
 Saksun.lua
