@@ -1,7 +1,7 @@
 ## Interface: 30400
 ## Title: Saksun
 ## Author: Kala
-## Version: 1.1.0-wotlk
+## Version: 1.2.0-wotlk
 
 Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
