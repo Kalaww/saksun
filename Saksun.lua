@@ -21,6 +21,7 @@ local WATER_MAGE_MANA_PIE = 43518;
 local WATER_HONEYMINT_TEA = 33445;
 local WATER_PUNGENT_SEAL_WHEY = 33444;
 local WATER_STARS_SORROW = 43236;
+local WATER_MOUNTAIN_WATER = 44750;
 
 local MANA_POTION_SSC = 32903;
 local MANA_POTION_TK = 32902;
@@ -180,6 +181,10 @@ function GetWaterID(level)
 
     if level >= 65 and HasItem(WATER_STARS_TEARS) and IsActiveBattlefieldArena() then
         return WATER_STARS_TEARS;
+    end
+
+    if level >= 65 and HasItem(WATER_MOUNTAIN_WATER) then
+        return WATER_MOUNTAIN_WATER;
     end
 
     if level >= 65 and HasItem(WATER_NAARU_RATION) then
