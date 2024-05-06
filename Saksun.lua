@@ -68,11 +68,31 @@ local MANA_POTIONS = {
     {id=2455,   level=5},   -- minor mana potion 140-180
 }
 
-local HP_POTION_SUPER = 22829;
-local HP_POTION_INJECTOR = 33092;
-local HP_POTION_RUNIC = 33447;
-local HP_POTION_RUNIC_INJECTOR = 41166;
-local HP_POTION_MYTHICAL = 57191;
+local HEALING_POTIONS = {
+    {id=57191,  level=70},  -- mythical healing potion 22500-27500
+    {id=41166,  level=70},  -- runic healing injector 2700-4500
+    {id=33447,  level=70},  -- runic healing potion 2700-4500
+    {id=43569,  level=1},   -- endless healing pition 1500-2500
+    {id=39671,  level=65},  -- resurgent healing potion 1500-2500
+    {id=32947,  level=55},  -- auchenai healing potion 1500-2500
+    {id=33934,  level=55},  -- crystal healing potion 1500-2500
+    {id=43531,  level=55},  -- argent healing potion 1500-2500
+    {id=33092,  level=55},  -- healing potion injector 1500-2500
+    {id=28100,  level=55},  -- volatile healing potion 1500-2500
+    {id=22829,  level=55},  -- super healing potion 1500-2500
+    {id=31852,  level=61},  -- major combat healing potion 1050-1750 (eye)
+    {id=31839,  level=61},  -- major combat healing potion 1050-1750 (alterac)
+    {id=31853,  level=61},  -- major combat healing potion 1050-1750 (warsong)
+    {id=31838,  level=61},  -- major combat healing potion 1050-1750 (arathi)
+    {id=13446,  level=45},  -- major healing potion 1050-1750
+    {id=18839,  level=35},  -- combat healing potion 700-900
+    {id=3928,   level=35},  -- superior healing potion 700-900
+    {id=1710,   level=21},  -- greater healing potion 455-585
+    {id=929,    level=12},  -- healing potion 280-360
+    {id=4596,   level=5},   -- discolored healing potion 140-180
+    {id=858,    level=3},   -- lesser healing potion 140-180
+    {id=118,    level=1},   -- lesser healing potion 70-90
+}
 
 
 function UpdateMacro(name, itemID)
@@ -95,44 +115,34 @@ function HasItem(itemID)
     return GetItemCount(itemID, false, false) > 0;
 end
 
-function GetManaPotionID(level)
-    for i=1, #MANA_POTIONS do
-        if level >= MANA_POTIONS[i]["level"] and HasItem(MANA_POTIONS[i]["id"]) then
-            return MANA_POTIONS[i]["id"]
-        end
-    end
-
-    return MANA_POTIONS[#MANA_POTIONS]["id"]
-end
-
-function GetHPPotionID(level)
-    if level >= 80 and HasItem(HP_POTION_MYTHICAL) then
-        return HP_POTION_MYTHICAL;
-    end
-
-    if level >= 70 and HasItem(HP_POTION_RUNIC_INJECTOR) then
-        return HP_POTION_RUNIC_INJECTOR;
-    end
-
-    if level >= 70 and HasItem(HP_POTION_RUNIC) then
-        return HP_POTION_RUNIC;
-    end
-
-    if HasItem(HP_POTION_INJECTOR) then
-        return HP_POTION_INJECTOR;
-    end
-    
-    return HP_POTION_SUPER;
-end
-
 function GetWaterID(level)
     for i=1, #WATERS do
         if level >= WATERS[i]["level"] and HasItem(WATERS[i]["id"]) then
-            return WATERS[i]["id"]
+            return WATERS[i]["id"];
         end
     end
 
-    return WATERS[#WATERS]["id"]
+    return WATERS[#WATERS]["id"];
+end
+
+function GetManaPotionID(level)
+    for i=1, #MANA_POTIONS do
+        if level >= MANA_POTIONS[i]["level"] and HasItem(MANA_POTIONS[i]["id"]) then
+            return MANA_POTIONS[i]["id"];
+        end
+    end
+
+    return MANA_POTIONS[#MANA_POTIONS]["id"];
+end
+
+function GetHealingPotionID(level)
+    for i=1, #HEALING_POTIONS do
+        if level >= HEALING_POTIONS[i]["level"] and HasItem(HEALING_POTIONS[i]["id"]) then
+            return HEALING_POTIONS[i]["id"];
+        end
+    end
+
+    return HEALING_POTIONS[#HEALING_POTIONS]["id"];
 end
 
 function UpdateMacros()
@@ -148,8 +158,8 @@ function UpdateMacros()
     local manaPotionID = GetManaPotionID(level);
     UpdateMacro(MACRO_MANA_POTION, manaPotionID);
     
-    local hpPotionID = GetHPPotionID(level);
-    UpdateMacro(MACRO_HEALING_POTION, hpPotionID);
+    local healingPotionID = GetHealingPotionID(level);
+    UpdateMacro(MACRO_HEALING_POTION, healingPotionID);
 end
 
 
