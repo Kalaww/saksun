@@ -8,7 +8,7 @@ addon.Saksun = Saksun
 L = LibStub("AceLocale-3.0"):GetLocale("Saksun")
 
 local MACRO_MANA_POTION = "ManaPotion";
-local MACRO_HP_POTION = "HealingPotion";
+local MACRO_HEALING_POTION = "HealingPotion";
 local MACRO_DRINK = "Drink";
 
 local WATER_MAGE_MANNA_BISCUIT = 34062;
@@ -22,6 +22,9 @@ local WATER_HONEYMINT_TEA = 33445;
 local WATER_PUNGENT_SEAL_WHEY = 33444;
 local WATER_STARS_SORROW = 43236;
 local WATER_MOUNTAIN_WATER = 44750;
+local WATER_SPARKLING_OASIS_WATER = 58256;
+local WATER_HIGHLAND_SPRING_WATER = 58257;
+local WATER_CONJURED_MANA_CAKE = 65499;
 
 local MANA_POTION_SSC = 32903;
 local MANA_POTION_TK = 32902;
@@ -31,6 +34,7 @@ local MANA_POTION_CRYSTAL = 33935;
 local MANA_POTION_MAJOR = 13444;
 local MANA_POTION_RUNIC = 33448;
 local MANA_POTION_RUNIC_INJECTOR = 42545;
+local MANA_POTION_MYTHICAL = 57192;
 
 local HP_POTION_SSC = 32904;
 local HP_POTION_TK = 32905;
@@ -39,6 +43,8 @@ local HP_POTION_INJECTOR = 33092;
 local HP_POTION_MAJOR = 13446;
 local HP_POTION_RUNIC = 33447;
 local HP_POTION_RUNIC_INJECTOR = 41166;
+local HP_POTION_MYTHICAL = 57191;
+
 
 local ZONES_THE_EYE = {
     267, -- mechanar
@@ -91,16 +97,20 @@ function HasItem(itemID)
 end
 
 function GetManaPotionID(mapID, level)
-    if level == 70 and Contains(ZONES_SCHOLOMANCE, mapID) and HasItem(MANA_POTION_MAJOR) then
-        return MANA_POTION_MAJOR;
-    end
+    -- if level == 70 and Contains(ZONES_SCHOLOMANCE, mapID) and HasItem(MANA_POTION_MAJOR) then
+    --     return MANA_POTION_MAJOR;
+    -- end
 
-    if level == 70 and Contains(ZONES_COILFANG_RESERVOIR, mapID) and HasItem(MANA_POTION_SSC) then
-        return MANA_POTION_SSC;
-    end
+    -- if level == 70 and Contains(ZONES_COILFANG_RESERVOIR, mapID) and HasItem(MANA_POTION_SSC) then
+    --     return MANA_POTION_SSC;
+    -- end
     
-    if level == 70 and Contains(ZONES_THE_EYE, mapID) and HasItem(MANA_POTION_TK) then
-        return MANA_POTION_TK;
+    -- if level == 70 and Contains(ZONES_THE_EYE, mapID) and HasItem(MANA_POTION_TK) then
+    --     return MANA_POTION_TK;
+    -- end
+
+    if level >= 80 and HasItem(MANA_POTION_MYTHICAL) then
+        return MANA_POTION_MYTHICAL;
     end
 
     if level >= 70 and HasItem(MANA_POTION_RUNIC_INJECTOR) then
@@ -123,16 +133,20 @@ function GetManaPotionID(mapID, level)
 end
 
 function GetHPPotionID(mapID, level)
-    if Contains(ZONES_SCHOLOMANCE, mapID) and HasItem(HP_POTION_MAJOR) then
-        return HP_POTION_MAJOR;
-    end
+    -- if Contains(ZONES_SCHOLOMANCE, mapID) and HasItem(HP_POTION_MAJOR) then
+    --     return HP_POTION_MAJOR;
+    -- end
 
-    if Contains(ZONES_COILFANG_RESERVOIR, mapID) and HasItem(HP_POTION_SSC) then
-        return HP_POTION_SSC;
-    end
+    -- if Contains(ZONES_COILFANG_RESERVOIR, mapID) and HasItem(HP_POTION_SSC) then
+    --     return HP_POTION_SSC;
+    -- end
     
-    if Contains(ZONES_THE_EYE, mapID) and HasItem(HP_POTION_TK) then
-        return HP_POTION_TK;
+    -- if Contains(ZONES_THE_EYE, mapID) and HasItem(HP_POTION_TK) then
+    --     return HP_POTION_TK;
+    -- end
+
+    if level >= 80 and HasItem(HP_POTION_MYTHICAL) then
+        return HP_POTION_MYTHICAL;
     end
 
     if level >= 70 and HasItem(HP_POTION_RUNIC_INJECTOR) then
@@ -151,12 +165,24 @@ function GetHPPotionID(mapID, level)
 end
 
 function GetWaterID(level)
-    if level >= 75 and HasItem(WATER_STARS_SORROW) and IsActiveBattlefieldArena() then
-        return WATER_STARS_SORROW;
+    -- if level >= 75 and HasItem(WATER_STARS_SORROW) and IsActiveBattlefieldArena() then
+    --     return WATER_STARS_SORROW;
+    -- end
+
+    if level >= 85 and HasItem(WATER_CONJURED_MANA_CAKE) then
+        return WATER_CONJURED_MANA_CAKE;
+    end
+
+    if level >= 85 and HasItem(WATER_HIGHLAND_SPRING_WATER) then
+        return WATER_HIGHLAND_SPRING_WATER;
     end
 
     if level >= 80 and HasItem(WATER_MAGE_MANA_STRUDEL) then
         return WATER_MAGE_MANA_STRUDEL;
+    end
+
+    if level >= 80 and HasItem(WATER_SPARKLING_OASIS_WATER) then
+        return WATER_SPARKLING_OASIS_WATER;
     end
 
     if level >= 75 and HasItem(WATER_HONEYMINT_TEA) then
@@ -208,7 +234,7 @@ function UpdateMacros()
     UpdateMacro(MACRO_MANA_POTION, manaPotionID);
     
     local hpPotionID = GetHPPotionID(mapID, level);
-    UpdateMacro(MACRO_HP_POTION, hpPotionID);
+    UpdateMacro(MACRO_HEALING_POTION, hpPotionID);
 end
 
 
