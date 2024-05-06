@@ -44,12 +44,29 @@ local WATERS = {
     {id=159,    level=1,    mana=151},      -- refreshing spring water
 };
 
-local MANA_POTION_SUPER = 22832;
-local MANA_POTION_INJECTOR = 33093;
-local MANA_POTION_CRYSTAL = 33935;
-local MANA_POTION_RUNIC = 33448;
-local MANA_POTION_RUNIC_INJECTOR = 42545;
-local MANA_POTION_MYTHICAL = 57192;
+local MANA_POTIONS = {
+    {id=57192,  level=80},  -- mythical mana potion 9250-10750
+    {id=42545,  level=70},  -- runic mana injector 4200-4400
+    {id=33448,  level=70},  -- runic mana potion 4200-4400
+    {id=43570,  level=1},   -- endless mana potion 1800-3000
+    {id=43530,  level=55},  -- argent mana potion 1800-3000
+    {id=32948,  level=55},  -- auchenai mana potion 1800-3000
+    {id=33935,  level=55},  -- crystal mana potion 1800-3000
+    {id=40067,  level=65},  -- icy potion injector 1800-3000
+    {id=33093,  level=55},  -- mana potion injector 1800-3000
+    {id=22832,  level=55},  -- super mana potion 1800-3000
+    {id=31840,  level=61},  -- major combat mana potion 1350-2250 (arathi)
+    {id=31841,  level=61},  -- major combat mana potion 1350-2250 (alterac)
+    {id=31855,  level=61},  -- major combat mana potion 1350-2250 (warsong)
+    {id=31854,  level=61},  -- major combat mana potion 1350-2250 (eye)
+    {id=28101,  level=55},  -- unstable mana potion 1350-2250
+    {id=13444,  level=49},  -- major mana potion 1350-2250
+    {id=13443,  level=41},  -- superior mana potion 900-1500
+    {id=6149,   level=31},  -- greater mana potion 700-900
+    {id=3827,   level=22},  -- mana potion 455-585
+    {id=3385,   level=14},  -- lesser mana potion 280-360
+    {id=2455,   level=5},   -- minor mana potion 140-180
+}
 
 local HP_POTION_SUPER = 22829;
 local HP_POTION_INJECTOR = 33092;
@@ -78,31 +95,17 @@ function HasItem(itemID)
     return GetItemCount(itemID, false, false) > 0;
 end
 
-function GetManaPotionID(mapID, level)
-    if level >= 80 and HasItem(MANA_POTION_MYTHICAL) then
-        return MANA_POTION_MYTHICAL;
+function GetManaPotionID(level)
+    for i=1, #MANA_POTIONS do
+        if level >= MANA_POTIONS[i]["level"] and HasItem(MANA_POTIONS[i]["id"]) then
+            return MANA_POTIONS[i]["id"]
+        end
     end
 
-    if level >= 70 and HasItem(MANA_POTION_RUNIC_INJECTOR) then
-        return MANA_POTION_RUNIC_INJECTOR;
-    end
-
-    if level >= 70 and HasItem(MANA_POTION_RUNIC) then
-        return MANA_POTION_RUNIC;
-    end
-
-    if HasItem(MANA_POTION_CRYSTAL) then
-        return MANA_POTION_CRYSTAL;
-    end
-
-    if HasItem(MANA_POTION_INJECTOR) then
-        return MANA_POTION_INJECTOR;
-    end
-    
-    return MANA_POTION_SUPER;
+    return MANA_POTIONS[#MANA_POTIONS]["id"]
 end
 
-function GetHPPotionID(mapID, level)
+function GetHPPotionID(level)
     if level >= 80 and HasItem(HP_POTION_MYTHICAL) then
         return HP_POTION_MYTHICAL;
     end
@@ -130,56 +133,6 @@ function GetWaterID(level)
     end
 
     return WATERS[#WATERS]["id"]
-
-    -- if level >= 85 and HasItem(WATER_CONJURED_MANA_CAKE) then
-    --     return WATER_CONJURED_MANA_CAKE;
-    -- end
-
-    -- if level >= 85 and HasItem(WATER_HIGHLAND_SPRING_WATER) then
-    --     return WATER_HIGHLAND_SPRING_WATER;
-    -- end
-
-    -- if level >= 80 and HasItem(WATER_MAGE_MANA_STRUDEL) then
-    --     return WATER_MAGE_MANA_STRUDEL;
-    -- end
-
-    -- if level >= 80 and HasItem(WATER_SPARKLING_OASIS_WATER) then
-    --     return WATER_SPARKLING_OASIS_WATER;
-    -- end
-
-    -- if level >= 75 and HasItem(WATER_HONEYMINT_TEA) then
-    --     return WATER_HONEYMINT_TEA;
-    -- end
-
-    -- if level >= 74 and HasItem(WATER_MAGE_MANA_PIE) then
-    --     return WATER_MAGE_MANA_PIE;
-    -- end
-
-    -- if level >= 70 and HasItem(WATER_PUNGENT_SEAL_WHEY) then
-    --     return WATER_PUNGENT_SEAL_WHEY;
-    -- end
-
-    -- if level >= 65 and HasItem(WATER_MAGE_MANNA_BISCUIT) then
-    --     return WATER_MAGE_MANNA_BISCUIT;
-    -- end
-
-    -- if level >= 65 and HasItem(WATER_MAGE_GLACIER_WATER) then
-    --     return WATER_MAGE_GLACIER_WATER;
-    -- end
-
-    -- if level >= 65 and HasItem(WATER_STARS_TEARS) and IsActiveBattlefieldArena() then
-    --     return WATER_STARS_TEARS;
-    -- end
-
-    -- if level >= 65 and HasItem(WATER_MOUNTAIN_WATER) then
-    --     return WATER_MOUNTAIN_WATER;
-    -- end
-
-    -- if level >= 65 and HasItem(WATER_NAARU_RATION) then
-    --     return WATER_NAARU_RATION;
-    -- end
-
-    -- return WATER_PURIFIED_DRAENIC_WATER;
 end
 
 function UpdateMacros()
@@ -189,13 +142,13 @@ function UpdateMacros()
     local waterID = GetWaterID(level);
     UpdateMacro(MACRO_DRINK, waterID);
 
-    local mapID = C_Map.GetBestMapForUnit("player");
-    if mapID == nil then return end
+    -- local mapID = C_Map.GetBestMapForUnit("player");
+    -- if mapID == nil then return end
     
-    local manaPotionID = GetManaPotionID(mapID, level);
+    local manaPotionID = GetManaPotionID(level);
     UpdateMacro(MACRO_MANA_POTION, manaPotionID);
     
-    local hpPotionID = GetHPPotionID(mapID, level);
+    local hpPotionID = GetHPPotionID(level);
     UpdateMacro(MACRO_HEALING_POTION, hpPotionID);
 end
 
