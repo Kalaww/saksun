@@ -12,6 +12,19 @@ local MACRO_HEALING_POTION = "HealingPotion";
 local MACRO_DRINK = "Drink";
 
 local WATERS = {
+    -- MOP
+    {id=80610,      level=90,   mana=300000},   -- conjured mana pudding (mage)
+    {id=81923,      level=90,   mana=300000},   -- cobo cola
+
+    -- MOP
+    {id=88578,      level=85,   mana=300000},   -- cup of kafa
+    {id=105703,     level=85,   mana=300000},   -- stormstout brew
+    {id=74636,      level=85,   mana=300000},   -- golden carp consomme
+    {id=104348,     level=85,   mana=300000},   -- timeless tea
+    {id=88532,      level=85,   mana=300000},   -- lotus water
+    {id=75026,      level=85,   mana=200000},   -- ginseng tea
+    {id=81924,      level=85,   mana=200000},   -- carbonated water
+
     {id=65499,  level=85,   mana=96000},    -- conjured mana cake (mage)
     {id=58257,  level=85,   mana=96000},    -- highland spring water
     
@@ -45,6 +58,7 @@ local WATERS = {
 };
 
 local MANA_POTIONS = {
+    {id=76098,  level=85},  -- master mana potion
     {id=57192,  level=80},  -- mythical mana potion 9250-10750
     {id=42545,  level=70},  -- runic mana injector 4200-4400
     {id=33448,  level=70},  -- runic mana potion 4200-4400
@@ -69,7 +83,8 @@ local MANA_POTIONS = {
 }
 
 local HEALING_POTIONS = {
-    {id=57191,  level=70},  -- mythical healing potion 22500-27500
+    {id=76097,  level=85},  -- master healing potion
+    {id=57191,  level=80},  -- mythical healing potion 22500-27500
     {id=41166,  level=70},  -- runic healing injector 2700-4500
     {id=33447,  level=70},  -- runic healing potion 2700-4500
     {id=43569,  level=1},   -- endless healing pition 1500-2500
