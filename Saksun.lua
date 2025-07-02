@@ -127,7 +127,7 @@ function Contains(list, x)
 end
 
 function HasItem(itemID)
-    return GetItemCount(itemID, false, false) > 0;
+    return C_Item.GetItemCount(itemID, false, false) > 0;
 end
 
 function GetWaterID(level)
